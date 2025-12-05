@@ -17,7 +17,7 @@ jobs:
       - name: Remove old Releases
         uses: dev-drprasad/delete-older-releases@master
         with:
-          keep_latest: 16
+          keep_latest: 68
           delete_tags: true
           delete_tag_pattern: "_"
         env:
