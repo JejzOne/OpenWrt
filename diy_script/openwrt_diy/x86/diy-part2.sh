@@ -334,6 +334,7 @@ sed -i 's,UPnP IGD 和 PCP,UPnP,g' feeds/luci/applications/luci-app-upnp/po/zh_H
 # sed -i 's/"KMS 服务器"/"KMS激活"/g' `grep "KMS 服务器" -rl ./`
 # sed -i 's/"TTYD 终端"/"命令窗"/g' `grep "TTYD 终端" -rl ./`
 # sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
+# sed -i 's/msgstr "主题设置"/msgstr "Argon 设置"/g' $(grep 'msgstr "主题设置"' -rl ./)
 
 # 转换插件语言翻译
 for e in $(ls -d $destination_dir/luci-*/po feeds/luci/applications/luci-*/po); do
