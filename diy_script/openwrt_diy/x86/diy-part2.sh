@@ -87,7 +87,7 @@ sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 
 # 删除所有包含 luci-app-attendedsysupgrade 的 Makefile 行
 for f in $(grep -rl 'luci-app-attendedsysupgrade' package feeds | grep 'Makefile$'); do
-    echo -n "❌ $f ..."
+    echo -n "Cleaning $f ..."
     sed -i '/luci-app-attendedsysupgrade/d' "$f"
     echo "✅"
 done
@@ -97,7 +97,7 @@ done
 
 # rust(ci false)
 if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
-  echo -n "🔧 Rust ..."
+  echo -n "Repair rust ..."
   # sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
   sed -i 's/--build-dir\ $(HOST_BUILD_DIR)\/build/--build-dir\ $(HOST_BUILD_DIR)\/build\ \\\n\		--ci\ false/' feeds/packages/lang/rust/Makefile
   echo "✅"
