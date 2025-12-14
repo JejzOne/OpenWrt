@@ -40,7 +40,7 @@ on:
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: master
+  REPO_BRANCH: main
   FEEDS_CONF: feeds_config/openwrt.feeds.conf.default
   CONFIG_FILE: config/openwrt_config/x86.config
   CONFIG_FILED: config/openwrt_config/x86-docker.config
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO_URL_op: https://github.com/openwrt/openwrt
-      REPO_BRANCH_op: master
+      REPO_BRANCH_op: main
       REPO_PATH_op : "op_x86_64"
     outputs:
       output: ${{ steps.outputunifreq.outputs.unifreq }}   
