@@ -170,7 +170,7 @@ clone_all https://github.com/sbwml/OpenAppFilter
 
 # smartdns
 git_clone https://github.com/pymumu/luci-app-smartdns luci-app-smartdns
-#git_clone https://github.com/pymumu/openwrt-smartdns smartdns
+# git_clone https://github.com/pymumu/openwrt-smartdns smartdns
 
 # mosdns
 clone_all v5 https://github.com/sbwml/luci-app-mosdns
@@ -185,6 +185,9 @@ clone_all https://github.com/fw876/helloworld
 # passwall
 clone_all https://github.com/xiaorouji/openwrt-passwall-packages
 clone_all https://github.com/xiaorouji/openwrt-passwall
+if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
+  clone_dir https://github.com/fw876/helloworld shadowsocks-rust
+fi
 
 # passwall2
 # clone_all https://github.com/xiaorouji/openwrt-passwall2
