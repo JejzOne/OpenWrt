@@ -224,10 +224,10 @@ sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' feed
 sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer.htm
 sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
-# 显示增加编译时间
+# 显示增加编译时间(时间4改5)
 pushd package/lean/default-settings/files
 export orig_version=$(cat "zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
-export date_version="By @Jejz build $(TZ=UTC-8 date '+%Y-%m-%d %H:%M')"
+export date_version="By @Jejz build $(TZ=UTC-8 date '+%Y-%m-%d') $(TZ=UTC-8 date +'%H' | sed -e 's/4/5/g'):$(TZ=UTC-8 date +%M | sed -e 's/4/5/g')"
 sed -i "s/${orig_version}/${orig_version} (${date_version})/g" zzz-default-settings
 popd
 echo -e "\e[41m当前写入的编译时间:\e[0m \e[33m$(grep 'DISTRIB_REVISION=' package/lean/default-settings/files/zzz-default-settings)\e[0m"
