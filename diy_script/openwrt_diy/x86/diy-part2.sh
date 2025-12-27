@@ -195,7 +195,7 @@ clone_all https://github.com/fw876/helloworld
 clone_all https://github.com/xiaorouji/openwrt-passwall-packages
 clone_all https://github.com/xiaorouji/openwrt-passwall
 if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
-  clone_dir https://github.com/fw876/helloworld shadowsocks-rust
+  cp -f $GITHUB_WORKSPACE/personal/shadowsocks-rust/Makefile $destination_dir/shadowsocks-rust/Makefile
 fi
 
 # passwall2
