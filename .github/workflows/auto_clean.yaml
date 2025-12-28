@@ -17,7 +17,7 @@ jobs:
       - name: Remove old Releases
         uses: dev-drprasad/delete-older-releases@master
         with:
-          keep_latest: 3
+          keep_latest: 8
           delete_tags: true
           delete_tag_pattern: "_"
         env:
@@ -26,7 +26,7 @@ jobs:
       - name: Delete old tags (keep latest N)
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         KEEP_LATEST: 3   # 保留最新 3 个 tag
+         KEEP_LATEST: 8   # 保留最新 3 个 tag
         run: |
          tags=($(gh api repos/${GITHUB_REPOSITORY}/tags --paginate --jq '.[].name'))
 
