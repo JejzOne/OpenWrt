@@ -100,7 +100,7 @@ fi
 clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
 
 # 修复ramfree位置问题
-sed -i '/"order":/{s/\([0-9]\+\)/"\1"/}' feeds/luci/luci-app-ramfree/root/usr/share/luci/menu.d/luci-app-ramfree.json
+sed -i '/"order":/{s/\([0-9]\+\)/"\1"/}' package/feeds/luci/luci-app-ramfree/root/usr/share/luci/menu.d/luci-app-ramfree.json
 
 # aria2 & ariaNG
 clone_all https://github.com/sbwml/ariang-nginx
