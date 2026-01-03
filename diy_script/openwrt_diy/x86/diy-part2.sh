@@ -93,11 +93,17 @@ for f in $(grep -rl 'luci-app-attendedsysupgrade' package feeds | grep 'Makefile
 done
 
 # 加入autocore
-# if [ "$REPO_BRANCH" = "openwrt-23.05" ] || [ "$REPO_BRANCH" = "openwrt-24.10" ]; then
-#     git clone -b "$REPO_BRANCH" --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
-# else
-#     git clone --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
-# fi
+if [ "$REPO_BRANCH" = "openwrt-23.05" ] || [ "$REPO_BRANCH" = "openwrt-24.10" ]; then
+    git clone -b "$REPO_BRANCH" --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
+else
+    git clone --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
+fi
+
+# CPU usage翻译
+sed -i '/msgstr "释放内存"/a \
+\
+msgid "CPU usage"\
+msgstr "CPU 使用率"' $destination_dir/luci-app-ramfree/po/zh_Hans/ramfree.po
 
 # 报错修复
 # rm -rf feeds/packages/utils/v2dat
