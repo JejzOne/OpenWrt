@@ -99,11 +99,12 @@ else
     git clone --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
 fi
 
-# CPU usage翻译
-sed -i '/msgstr "释放内存"/a \
-\
-msgid "CPU usage"\
-msgstr "CPU 使用率"' $destination_dir/luci-app-ramfree/po/zh_Hans/ramfree.po
+# autocore中CPU usage翻译
+cat >> "feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po" <<-EOF
+
+msgid "CPU usage"
+msgstr "CPU 使用率"
+EOF
 
 # 报错修复
 # rm -rf feeds/packages/utils/v2dat
