@@ -5,7 +5,7 @@
 GEOIP_URL="https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat"
 GEOSITE_URL="https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
 GEOIP_METADB_URL="https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.metadb"
-ASN_MMDB_URL="https://github.com/Jejz168/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb"
+ASN_MMDB_URL="https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
 
 wget -qO- $GEOIP_URL > files/etc/nikki/run/GeoIP.dat
 wget -qO- $GEOSITE_URL > files/etc/nikki/run/GeoSite.dat
