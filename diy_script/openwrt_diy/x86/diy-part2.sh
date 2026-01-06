@@ -205,14 +205,14 @@ clone_all https://github.com/sbwml/luci-app-openlist
 clone_all https://github.com/fw876/helloworld
 
 # passwall
-clone_all https://github.com/xiaorouji/openwrt-passwall-packages
-clone_all https://github.com/xiaorouji/openwrt-passwall
+clone_all https://github.com/Openwrt-Passwall/openwrt-passwall-packages
+clone_all https://github.com/Openwrt-Passwall/openwrt-passwall
 if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
   cp -f $GITHUB_WORKSPACE/personal/shadowsocks-rust/Makefile $destination_dir/shadowsocks-rust/Makefile
 fi
 
 # passwall2
-# clone_all https://github.com/xiaorouji/openwrt-passwall2
+# clone_all https://github.com/Openwrt-Passwall/openwrt-passwall2
 
 # Nikki
 clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
