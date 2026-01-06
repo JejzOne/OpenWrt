@@ -161,11 +161,11 @@ clone_all https://github.com/sbwml/luci-app-alist
 clone_all https://github.com/fw876/helloworld
 
 # passwall
-clone_all https://github.com/xiaorouji/openwrt-passwall-packages
-clone_all https://github.com/xiaorouji/openwrt-passwall
+clone_all https://github.com/Openwrt-Passwall/openwrt-passwall-packages
+clone_all https://github.com/Openwrt-Passwall/openwrt-passwall
 
 # passwall2
-# clone_all https://github.com/xiaorouji/openwrt-passwall2
+# clone_all https://github.com/Openwrt-Passwall/openwrt-passwall2
 
 # Nikki
 clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
