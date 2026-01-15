@@ -106,9 +106,6 @@ msgid "CPU usage"
 msgstr "CPU 使用率"
 EOF
 
-# 报错修复
-# rm -rf feeds/packages/utils/v2dat
-
 # rust(ci false)
 if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
   if ! grep -q -- '--ci[[:space:]]\+false' feeds/packages/lang/rust/Makefile; then
@@ -228,6 +225,10 @@ git_clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager
 
 # netspeedtest网络测试
 clone_dir main https://github.com/sbwml/openwrt_pkgs luci-app-netspeedtest speedtest-cli
+
+# 报错修复
+# rm -rf feeds/packages/utils/v2dat
+cp -f $GITHUB_WORKSPACE/personal/xray-core/Makefile feeds/packages/net/xray-core/Makefile
 
 # openclash
 clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
