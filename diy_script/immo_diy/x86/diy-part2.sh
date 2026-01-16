@@ -52,11 +52,6 @@ WORKGROUP_NAME="WORKGROUP$(date +%s | tail -c 4)"
 sed -i "s/WORKGROUP/${WORKGROUP_NAME}/g" feeds/packages/net/samba4/files/samba.config
 sed -i "s/workgroup \"WORKGROUP\"/workgroup \"${WORKGROUP_NAME}\"/g" feeds/packages/net/samba4/files/samba.init
 
-# 取消bootstrap为默认主题
-sed -i '/set_opt main.mediaurlbase \/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
-sed -i 's/Bootstrap theme/Argon theme/g' feeds/luci/collections/*/Makefile
-sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/*/Makefile
-
 # luci-compat - 修复上移下移按钮翻译
 sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
 sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
@@ -242,6 +237,23 @@ if [ -f "$ARGON_CONFIG_FILE" ]; then
 
     echo "argon theme has been customized!"
 fi
+
+# 取消自添加主题的默认设置
+find package -type f -path '*/luci-theme-*/root/etc/uci-defaults/*' |
+while IFS= read -r f; do
+  if grep -q 'set luci.main.mediaurlbase' "$f"; then
+    echo -n "Cleaning $f ..."
+    sed -i '/set luci.main.mediaurlbase/d' "$f"
+    echo "✅"
+  fi
+done
+
+# 设置默认主题
+default_theme='argon'
+sed -i "s/bootstrap/$default_theme/g" feeds/luci/modules/luci-base/root/etc/config/luci
+
+# 更改 aurora主题设置 顺序
+sed -i 's/"order"[[:space:]]*:[[:space:]]*100/"order": 90/g' $destination_dir/luci-app-aurora-config/root/usr/share/luci/menu.d/luci-app-aurora.json
 
 # 修改主题多余版本信息
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer.htm
