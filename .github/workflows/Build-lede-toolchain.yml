@@ -130,11 +130,13 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/output
         cd $OPENWRT_PATH
         make toolchain/compile -j$(nproc) || make toolchain/compile -j1 V=s
-        echo -e "\e[1;33m开始打包toolchain目录\e[0m"
-        [ -d ".ccache" ] && (ccache=".ccache"; ls -alh .ccache)
+        echo "🚀 开始打包工具链"
+        [[ -d ".ccache" && -n "$(ls -A .ccache)" ]] && (ccache=".ccache"; ls -Alh .ccache)
+        du -h --max-depth=1 ./staging_dir
         tar -I zstdmt -cf $GITHUB_WORKSPACE/output/$CACHE_NAME.tzst staging_dir/host* staging_dir/tool* $ccache
         ls -lh $GITHUB_WORKSPACE/output
-        [ -e $GITHUB_WORKSPACE/output/$CACHE_NAME.tzst ]
+        [ -e $GITHUB_WORKSPACE/output/$CACHE_NAME.tzst ] && \
+        echo "✅ 工具链打包完成"
 
     - name: Delete Old Toolchain
       if: steps.toolchain.conclusion == 'success'
