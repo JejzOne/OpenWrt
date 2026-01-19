@@ -223,7 +223,7 @@ clone_dir main https://github.com/sbwml/openwrt_pkgs luci-app-netspeedtest speed
 
 # 报错修复
 # rm -rf feeds/packages/utils/v2dat
-cp -f $GITHUB_WORKSPACE/personal/xray-core/Makefile feeds/packages/net/xray-core/Makefile
+# cp -f $GITHUB_WORKSPACE/personal/xray-core/Makefile feeds/packages/net/xray-core/Makefile
 
 # openclash
 clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
