@@ -27,7 +27,7 @@ fi
 
 # 颜色输出
 color() {
-    case $1 in
+    case "$1" in
         cr) echo -e "\e[1;31m$2\e[0m" ;;
         cg) echo -e "\e[1;32m$2\e[0m" ;;
         cy) echo -e "\e[1;33m$2\e[0m" ;;
@@ -54,7 +54,7 @@ status() {
 
 # 查找目录
 find_dir() {
-    find $1 -maxdepth 3 -type d -name "$2" -print -quit 2>/dev/null
+    find "$1" -maxdepth 3 -type d -name "$2" -print -quit 2>/dev/null
 }
 
 # 打印信息
@@ -125,6 +125,47 @@ clone_dir() {
             print_info $(color cb 添加) "$target_dir" [ $(color cb ✔) ]
         fi
     done
+    rm -rf "$temp_dir"
+}
+
+# 添加源仓库内的所有子目录
+clone_all() {
+    local repo_url branch temp_dir=$(mktemp -d)
+    if [[ "$1" == */* ]]; then
+        repo_url="$1"
+        shift
+    else
+        branch="-b $1 --single-branch"
+        repo_url="$2"
+        shift 2
+    fi
+    git clone -q $branch --depth=1 "$repo_url" "$temp_dir" 2>/dev/null || {
+        print_info $(color cr 拉取) "$repo_url" [ $(color cr ✖) ]
+        rm -rf "$temp_dir"
+        return 1
+    }
+    process_dir() {
+        while IFS= read -r source_dir; do
+            local target_dir=$(basename "$source_dir")
+            local current_dir=$(find_dir "package/ feeds/ target/" "$target_dir")
+            if [[ -d "$current_dir" ]]; then
+                rm -rf "$current_dir"
+                mv -f "$source_dir" "${current_dir%/*}"
+                print_info $(color cg 替换) "$target_dir" [ $(color cg ✔) ]
+            else
+                mv -f "$source_dir" "$destination_dir"
+                print_info $(color cb 添加) "$target_dir" [ $(color cb ✔) ]
+            fi
+        done < <(find "$1" -maxdepth 1 -mindepth 1 -type d ! -name '.*')
+    }
+    if [[ $# -eq 0 ]]; then
+        process_dir "$temp_dir"
+    else
+        for dir_name in "$@"; do
+            [[ -d "$temp_dir/$dir_name" ]] && process_dir "$temp_dir/$dir_name" || \
+            print_info $(color cr 目录) "$dir_name" [ $(color cr ✖) ]
+        done
+    fi
     rm -rf "$temp_dir"
 }
 
