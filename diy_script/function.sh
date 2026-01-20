@@ -192,7 +192,6 @@ CACHE_NAME="$SOURCE_REPO-${REPO_BRANCH#*-}-$DEVICE_TARGET-cache-$TOOLS_HASH"
 echo "CACHE_NAME=$CACHE_NAME" >>$GITHUB_ENV
 
 # 下载并部署toolchain
-local cache_xa cache_xc
 if [[ "$TOOLCHAIN" = 'true' ]]; then
     #cache_xa=$(curl -sL "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" | awk -F '"' '/download_url/{print $4}' | grep "$CACHE_NAME")
     cache_xa="https://github.com/$GITHUB_REPOSITORY/releases/download/toolchain-cache/$CACHE_NAME.tzst"
