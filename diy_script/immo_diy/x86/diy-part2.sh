@@ -79,7 +79,7 @@ done
 # 报错修复
 # sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 if [ "$REPO_BRANCH" == "master" ]; then
-  rm -rf feeds/packages/packages/lang/lua/lua-neturl
+  rm -rf feeds/packages/lang/lua/lua-neturl
 fi
 
 # rust(ci false)
