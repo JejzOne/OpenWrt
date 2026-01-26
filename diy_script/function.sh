@@ -222,7 +222,17 @@ destination_dir="package/A"
 [ -d "$destination_dir" ] || mkdir -p "$destination_dir"
 
 if [ -z "$DEVICE_TARGET" ] || [ "$DEVICE_TARGET" == "-" ]; then
-  echo -e "$(color cy 当前编译机型) $(color cb $SOURCE_REPO-${REPO_BRANCH#*-})"
+  echo -e "$(color cy "📊 当前编译信息")"
+  echo "========================================"
+  echo "🔷 固件源码: $(color cc "$SOURCE_REPO")"
+  echo "🔷 源码分支: $(color cc "$REPO_BRANCH")"
+  echo "========================================"
 else
-  echo -e "$(color cy 当前编译机型) $(color cb $SOURCE_REPO-${REPO_BRANCH#*-}-$DEVICE_TARGET-$KERNEL_VERSION)"
+  echo -e "$(color cy "📊 当前编译信息")"
+  echo "========================================"
+  echo "🔷 固件源码: $(color cc "$SOURCE_REPO")"
+  echo "🔷 源码分支: $(color cc "$REPO_BRANCH")"
+  echo "🔷 目标设备: $(color cc "$DEVICE_TARGET")"
+  echo "🔷 内核版本: $(color cc "$KERNEL_VERSION")"
+  echo "========================================"
 fi
