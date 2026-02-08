@@ -103,7 +103,7 @@ EOF
 
 # rust(ci false)
 if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
-  sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
+  # sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
   if ! grep -q -- '--ci[[:space:]]\+false' feeds/packages/lang/rust/Makefile; then
     echo -n "Repair rust ..."
     sed -i 's/--build-dir\ $(HOST_BUILD_DIR)\/build/--build-dir\ $(HOST_BUILD_DIR)\/build\ \\\n\		--ci\ false/' feeds/packages/lang/rust/Makefile
