@@ -121,7 +121,7 @@ show_menu() {
     echo "=============================================="
     echo -e "\e[33m1. 更改 LAN 口 IP 地址 (Change LAN port IP address) \e[0m"
     echo -e "\e[33m2. 更改管理员密码 (Change administrator password) \e[0m"
-    echo -e "\e[33m3. 切换默认主题 (Reset network and Switch default theme) \e[0m"
+    echo -e "\e[33m3. 切换默认主题 (Switch default theme) \e[0m"
     echo -e "\e[33m4. 重启系统 (Reboot) \e[0m"
     echo -e "\e[33m5. 关闭系统 (Shutdown) \e[0m"
     echo -e "\e[33m6. 释放内存 (Release memory) \e[0m"
