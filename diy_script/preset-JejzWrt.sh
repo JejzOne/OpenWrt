@@ -45,28 +45,28 @@ get_net_status() {
         d=$(ethtool $i)
         name=$(uci show network | grep "$i" | head -n1 |awk -F '.'  '{print $2}' | awk -F '_'  '{print $1}')
         if [ x$name == x'@device[0]' ] ;then
-              iftype=$(uci get network.$name.name | awk -F '-' '{print $2}') 
+            iftype=$(uci get network.$name.name | awk -F '-' '{print $2}') 
         else
-              if  [[ x`uci -q get network.wan.$ifname 2>/dev/null` == "x$i" ]] && [[ `uci -q get network.wan.$ifname 2>/dev/null` ]] ;then
+            if [[ x`uci -q get network.wan.$ifname 2>/dev/null` == "x$i" ]] && [[ `uci -q get network.wan.$ifname 2>/dev/null` ]] ;then
 	            iftype='wan' 
-	       else   
+	        else   
 	            iftype='-' 
-	       fi 
-         fi
-         carrier=$(cat /sys/class/net/"$i"/carrier 2>/dev/null)
-         [ "$carrier" = "1" ] && status="已连接up"|| status="未连接down"
-	     speed=$(cat /sys/class/net/"$i"/speed 2>/dev/null)
-  	     if [ -z "$speed" ] || [ "$speed" = "-" ]; then
- 	         speed="-"
-  	     else
-  	         if [ "$speed" -ge 1000 ]; then
-  	             speed=`echo $speed | awk '{print $1/1000 " Gb/s"}'`
-  	         else
-   	             speed="${speed}Mb/s"
-  	         fi
- 	     fi
+	        fi
+        fi
+        carrier=$(cat /sys/class/net/"$i"/carrier 2>/dev/null)
+        [ "$carrier" = "1" ] && status="已连接up"|| status="未连接down"
+	    speed=$(cat /sys/class/net/"$i"/speed 2>/dev/null)
+  	    if [ -z "$speed" ] || [ "$speed" = "-" ]; then
+ 	        speed="-"
+  	    else
+  	        if [ "$speed" -ge 1000 ]; then
+  	            speed=`echo $speed | awk '{print $1/1000 " Gb/s"}'`
+  	        else
+   	            speed="${speed}Mb/s"
+  	        fi
+ 	    fi
 
-         eth_info+=("$iftype|$i|$status|$speed")
+        eth_info+=("$iftype|$i|$status|$speed")
     done
 
     printf "%-12s %-16s %-16s %-16s\n" "接口(type) 网卡(Interface)" "状态(Status)" "速度(Speed)"
