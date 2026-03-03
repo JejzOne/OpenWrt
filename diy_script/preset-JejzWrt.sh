@@ -54,26 +54,26 @@ get_net_status() {
 	       fi 
          fi
          carrier=$(cat /sys/class/net/"$i"/carrier 2>/dev/null)
-    [ "$carrier" = "1" ] && status="已连接up"|| status="未连接down"
-	   speed=$(cat /sys/class/net/"$i"/speed 2>/dev/null)
-  	   if [ -z "$speed" ] || [ "$speed" = "-" ]; then
+         [ "$carrier" = "1" ] && status="已连接up"|| status="未连接down"
+	     speed=$(cat /sys/class/net/"$i"/speed 2>/dev/null)
+  	     if [ -z "$speed" ] || [ "$speed" = "-" ]; then
  	         speed="-"
-  	   else
+  	     else
   	         if [ "$speed" -ge 1000 ]; then
   	             speed=`echo $speed | awk '{print $1/1000 " Gb/s"}'`
   	         else
    	             speed="${speed}Mb/s"
   	         fi
- 	    fi
+ 	     fi
 
-          eth_info+=("$iftype|$i|$status|$speed")
+         eth_info+=("$iftype|$i|$status|$speed")
     done
 
     printf "%-12s %-16s %-16s %-16s\n" "接口(type) 网卡(Interface)" "状态(Status)" "速度(Speed)"
-   for entry in "${eth_info[@]}"; do
+    for entry in "${eth_info[@]}"; do
         IFS='|' read -r iftype i status speed <<< "$entry"
         printf "%-12s %-16s %-16s %-16s\n" " $iftype" "$i" "$status" "${speed}"
-   done
+    done
 }
 
 # 判断系统是通过 BIOS 还是 UEFI 启动
