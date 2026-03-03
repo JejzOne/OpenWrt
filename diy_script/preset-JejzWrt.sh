@@ -90,7 +90,6 @@ color_output() {
 
 # 打印脚本头部，增加美观
 print_header() {
-    clear
     color_output "\e[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\e[0m"
     color_output "\e[36m\       _      _   __          __   _        / \e[0m"
     color_output "\e[36m\      | |    (_)  \ \        / /  | |       / \e[0m"
