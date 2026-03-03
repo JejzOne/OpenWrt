@@ -37,6 +37,45 @@ cpu_temp=$(cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null | awk '{printf 
 # 获取磁盘使用情况
 disk_usage=$(df -h / | awk '/\// {printf "%s of %s", $5, $2}')
 
+# 获取接口状态（仅 lan / wan）
+get_net_status() {
+    eth_info=()
+    echo -e "\e[96m当前网卡状态 (Network Interfaces Status):\e[0m"
+    for i in $(ls /sys/class/net/ | grep -E '^(eth[0-9]+|usb[0-9]+|lan[0-9]+|wan)$'); do
+        d=$(ethtool $i)
+        name=$(uci show network | grep "$i" | head -n1 |awk -F '.'  '{print $2}' | awk -F '_'  '{print $1}')
+        if [ x$name == x'@device[0]' ] ;then
+              iftype=$(uci get network.$name.name | awk -F '-' '{print $2}') 
+        else
+              if  [[ x`uci -q get network.wan.$ifname 2>/dev/null` == "x$i" ]] && [[ `uci -q get network.wan.$ifname 2>/dev/null` ]] ;then
+	            iftype='wan' 
+	       else   
+	            iftype='-' 
+	       fi 
+         fi
+         carrier=$(cat /sys/class/net/"$i"/carrier 2>/dev/null)
+    [ "$carrier" = "1" ] && status="已连接up"|| status="未连接down"
+	   speed=$(cat /sys/class/net/"$i"/speed 2>/dev/null)
+  	   if [ -z "$speed" ] || [ "$speed" = "-" ]; then
+ 	         speed="-"
+  	   else
+  	         if [ "$speed" -ge 1000 ]; then
+  	             speed=`echo $speed | awk '{print $1/1000 " Gb/s"}'`
+  	         else
+   	             speed="${speed}Mb/s"
+  	         fi
+ 	    fi
+
+          eth_info+=("$iftype|$i|$status|$speed")
+    done
+
+    printf "%-12s %-16s %-16s %-16s\n" "接口(type) 网卡(Interface)" "状态(Status)" "速度(Speed)"
+   for entry in "${eth_info[@]}"; do
+        IFS='|' read -r iftype i status speed <<< "$entry"
+        printf "%-12s %-16s %-16s %-16s\n" " $iftype" "$i" "$status" "${speed}"
+   done
+}
+
 # 判断系统是通过 BIOS 还是 UEFI 启动
 if [ -d /sys/firmware/efi ]; then
     boot_mode="UEFI"
@@ -71,6 +110,8 @@ print_header() {
     echo -e "Target Info:     $platform - $boot_mode "
     echo -e "\e[31mIpv4 Address\e[0m:    \e[41m$ip_addresses\e[0m"
     echo " "
+    get_net_status
+    echo " "
 }
 
 # 显示菜单
@@ -80,7 +121,7 @@ show_menu() {
     echo "=============================================="
     echo -e "\e[33m1. 更改 LAN 口 IP 地址 (Change LAN port IP address) \e[0m"
     echo -e "\e[33m2. 更改管理员密码 (Change administrator password) \e[0m"
-    echo -e "\e[33m3. 重置网络和切换默认主题 (Reset network and Switch default theme) \e[0m"
+    echo -e "\e[33m3. 切换默认主题 (Reset network and Switch default theme) \e[0m"
     echo -e "\e[33m4. 重启系统 (Reboot) \e[0m"
     echo -e "\e[33m5. 关闭系统 (Shutdown) \e[0m"
     echo -e "\e[33m6. 释放内存 (Release memory) \e[0m"
@@ -193,7 +234,7 @@ change_password() {
     show_menu
 }
 
-# 重置网络和切换默认主题
+# 切换默认主题
 change_theme() {
     # 提示用户是否更改 luci 配置
     echo -n "是否要更改主题配置为默认主题？(y/n): "
@@ -207,18 +248,6 @@ change_theme() {
     else
         echo "主题更改已取消。"
     fi
- 
-    # 提示是否重启网络
-    echo -n "是否要重启网络服务？(y/n): "
-    read reset_choice
-    if [[ "$reset_choice" == "y" || "$reset_choice" == "Y" ]]; then
-        echo "正在重启网络..."
-        /etc/init.d/network restart
-        echo "网络已重启。"
-    else
-        echo "网络设置未更改。"
-    fi
-
     # 返回菜单
     printf "按 Enter 键返回菜单..."
     read
