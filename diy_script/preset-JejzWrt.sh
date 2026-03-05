@@ -7,6 +7,9 @@
 cat << 'EOF' > files/bin/JejzWrt
 #!/bin/bash
 
+#主机名
+hostname=$(uname -n)
+
 # 获取内核版本
 kernel_version=$(uname -r)
 
@@ -69,7 +72,7 @@ get_net_status() {
         eth_info+=("$iftype|$i|$status|$speed")
     done
 
-    printf "%-12s %-16s %-16s %-16s\n" "接口(type) 网卡(Interface)" "状态(Status)" "速度(Speed)"
+    printf "%-12s %-16s %-16s %-16s\n" " 接口(type) 网卡(Interface)" "状态(Status)" "速度(Speed)"
     for entry in "${eth_info[@]}"; do
         IFS='|' read -r iftype i status speed <<< "$entry"
         printf "%-12s %-16s %-16s %-16s\n" " $iftype" "$i" "$status" "${speed}"
@@ -105,8 +108,8 @@ print_header() {
     echo -e "Run Time:        $days 天 $hours 小时 $minutes 分钟 $seconds 秒 "
     echo -e "Memory Usage:    $mem_usage "
     echo -e "Kernel Ver:      $kernel_version $cpu_temp "
-    echo -e "Overlay /TMP:    $disk_usage "
-    echo -e "Target Info:     $platform - $boot_mode "
+    echo -e "Overlay/TMP:     $disk_usage "
+    echo -e "Hostname/Target Info:     $hostname/$platform - $boot_mode "
     echo -e "\e[31mIpv4 Address\e[0m:    \e[41m$ip_addresses\e[0m"
     echo " "
     get_net_status
