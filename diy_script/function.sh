@@ -146,16 +146,7 @@ clone_all() {
     }
     process_dir() {
         while IFS= read -r source_dir; do
-            local target_dir=$(basename "$source_dir")
-			
-			# ✅ 排除列表
-            for ex in "$@"; do
-			    [[ "$target_dir" == "$ex" ]] && {
-                    print_info $(color cr 丢弃) "$target_dir" [ $(color cr ✖) ]
-                    continue 2
-			    }
-            done
-			
+            local target_dir=$(basename "$source_dir")			
             local current_dir=$(find_dir "package/ feeds/ target/" "$target_dir")
             if [[ -d "$current_dir" ]]; then
                 rm -rf "$current_dir"
