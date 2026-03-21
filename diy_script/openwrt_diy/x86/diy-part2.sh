@@ -213,7 +213,7 @@ clone_all https://github.com/nikkinikki-org/OpenWrt-momo
 git_clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager
 
 # quickfile文件管理
-clone_all https://github.com/sbwml/luci-app-quickfile
+# clone_all https://github.com/sbwml/luci-app-quickfile
 
 # netspeedtest网络测试
 clone_dir main https://github.com/sbwml/openwrt_pkgs luci-app-netspeedtest speedtest-cli
