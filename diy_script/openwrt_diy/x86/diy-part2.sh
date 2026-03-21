@@ -117,18 +117,12 @@ rm -rf feeds/packages/net/adguardhome
 clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
 
 # 判断 REPO_BRANCH 再设置
-if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
-    echo "Detected REPO_BRANCH as openwrt-23.05..."
-    # 替换immortalwrt插件
-    clone_dir openwrt-23.05 https://github.com/immortalwrt/luci luci-app-homeproxy luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-softethervpn luci-app-vlmcsd luci-app-hd-idle
-    # 补全依赖
-    clone_dir openwrt-23.05 https://github.com/immortalwrt/packages zerotier nps socat strongswan vlmcsd vsftpd hd-idle
-else
-    # 替换immortalwrt插件
-    clone_dir master https://github.com/immortalwrt/luci luci-app-homeproxy luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-softethervpn luci-app-vlmcsd luci-app-hd-idle
-    # 补全依赖
-    clone_dir master https://github.com/immortalwrt/packages zerotier nps socat strongswan vlmcsd vsftpd hd-idle
-fi
+REPO_BRANCH="${REPO_BRANCH:-master}"
+echo "Detected REPO_BRANCH as $REPO_BRANCH..."
+# 替换immortalwrt插件
+clone_dir "$REPO_BRANCH" https://github.com/immortalwrt/luci luci-app-homeproxy luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-softethervpn luci-app-vlmcsd luci-app-hd-idle luci-app-microsocks
+# 补全依赖
+clone_dir "$REPO_BRANCH" https://github.com/immortalwrt/packages zerotier nps socat strongswan vlmcsd vsftpd hd-idle
 
 # 修复ramfree位置问题
 sed -i '/"order":/{s/\([0-9]\+\)/"\1"/}' $destination_dir/luci-app-ramfree/root/usr/share/luci/menu.d/luci-app-ramfree.json
