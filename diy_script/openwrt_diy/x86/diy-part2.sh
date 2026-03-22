@@ -188,10 +188,10 @@ git_clone https://github.com/sbwml/packages_lang_golang golang
 clone_all https://github.com/sbwml/luci-app-openlist
 
 # ssr-plus
-clone_all https://github.com/fw876/helloworld microsocks
+clone_all https://github.com/fw876/helloworld
 
 # passwall
-clone_all https://github.com/Openwrt-Passwall/openwrt-passwall-packages microsocks
+clone_all https://github.com/Openwrt-Passwall/openwrt-passwall-packages
 clone_all https://github.com/Openwrt-Passwall/openwrt-passwall
 if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
   cp -f $GITHUB_WORKSPACE/personal/shadowsocks-rust/Makefile $destination_dir/shadowsocks-rust/Makefile
