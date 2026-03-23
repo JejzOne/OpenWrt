@@ -145,21 +145,20 @@ clone_all() {
         return 1
     }
     process_dir() {
+	    # 解析排除列表（!xxx）
 	    local exclude_list=()
         for arg in "$@"; do
             [[ "$arg" == !* ]] && exclude_list+=("${arg:1}")
         done
-		
         while IFS= read -r source_dir; do
             local target_dir=$(basename "$source_dir")
-
+            # 排除目录
 			for ex in "${exclude_list[@]}"; do
                 if [[ "$target_dir" == "$ex" ]]; then
                     print_info $(color cr 排除) "$target_dir" [ $(color cr ✔) ]
                     continue 2
                 fi
             done
-			
             local current_dir=$(find_dir "package/ feeds/ target/" "$target_dir")
             if [[ -d "$current_dir" ]]; then
                 rm -rf "$current_dir"
@@ -174,14 +173,16 @@ clone_all() {
     if [[ $# -eq 0 ]]; then
         process_dir "$temp_dir"
 	else
+	    # 有参数 → 可能包含子目录 + 排除
         local subdirs=()
         for arg in "$@"; do
             [[ "$arg" != !* ]] && subdirs+=("$arg")
         done
-
         if [[ ${#subdirs[@]} -eq 0 ]]; then
+		    # 只有排除参数
             process_dir "$temp_dir" "$@"
         else
+		    # 指定子目录 + 排除（!xxx）
             for dir_name in "${subdirs[@]}"; do
                 if [[ -d "$temp_dir/$dir_name" ]]; then
                     process_dir "$temp_dir/$dir_name" "$@"
