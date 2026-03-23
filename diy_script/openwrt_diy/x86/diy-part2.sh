@@ -128,7 +128,7 @@ clone_dir "$REPO_BRANCH" https://github.com/immortalwrt/packages zerotier nps so
 sed -i '/"order":/{s/\([0-9]\+\)/"\1"/}' $destination_dir/luci-app-ramfree/root/usr/share/luci/menu.d/luci-app-ramfree.json
 
 # ssr-plus
-clone_all https://github.com/fw876/helloworld
+clone_all https://github.com/fw876/helloworld !mosdns
 
 # passwall
 clone_all https://github.com/Openwrt-Passwall/openwrt-passwall-packages
