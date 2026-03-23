@@ -155,7 +155,7 @@ clone_all() {
 
 			for ex in "${exclude_list[@]}"; do
                 if [[ "$target_dir" == "$ex" ]]; then
-                    print_info $(color cy 排除) "$target_dir" [ $(color cy ✔) ]
+                    print_info $(color cr 排除) "$target_dir" [ $(color cr ✔) ]
                     continue 2
                 fi
             done
