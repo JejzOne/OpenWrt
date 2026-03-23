@@ -9,7 +9,7 @@ else
 fi
 GEOIP_URL="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
 GEOSITE_URL="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
-ASN_MMDB_URL="https://github.com/Jejz168/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb"
+ASN_MMDB_URL="https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
 Model_bin_URL="https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model.bin"
 
 wget -qO- $CLASH_META_URL | tar xOvz > files/etc/openclash/core/clash_meta
