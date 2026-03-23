@@ -145,8 +145,21 @@ clone_all() {
         return 1
     }
     process_dir() {
+	    local exclude_list=()
+        for arg in "$@"; do
+            [[ "$arg" == !* ]] && exclude_list+=("${arg:1}")
+        done
+		
         while IFS= read -r source_dir; do
-            local target_dir=$(basename "$source_dir")			
+            local target_dir=$(basename "$source_dir")
+
+			for ex in "${exclude_list[@]}"; do
+                if [[ "$target_dir" == "$ex" ]]; then
+                    print_info $(color cy 排除) "$target_dir" [ $(color cy ✔) ]
+                    continue 2
+                fi
+            done
+			
             local current_dir=$(find_dir "package/ feeds/ target/" "$target_dir")
             if [[ -d "$current_dir" ]]; then
                 rm -rf "$current_dir"
@@ -160,11 +173,23 @@ clone_all() {
     }
     if [[ $# -eq 0 ]]; then
         process_dir "$temp_dir"
-    else
-        for dir_name in "$@"; do
-            [[ -d "$temp_dir/$dir_name" ]] && process_dir "$temp_dir/$dir_name" || \
-            print_info $(color cr 目录) "$dir_name" [ $(color cr ✖) ]
+	else
+        local subdirs=()
+        for arg in "$@"; do
+            [[ "$arg" != !* ]] && subdirs+=("$arg")
         done
+
+        if [[ ${#subdirs[@]} -eq 0 ]]; then
+            process_dir "$temp_dir" "$@"
+        else
+            for dir_name in "${subdirs[@]}"; do
+                if [[ -d "$temp_dir/$dir_name" ]]; then
+                    process_dir "$temp_dir/$dir_name" "$@"
+                else
+                    print_info $(color cr 目录) "$dir_name" [ $(color cr ✖) ]
+                fi
+            done
+        fi
     fi
     rm -rf "$temp_dir"
 }
