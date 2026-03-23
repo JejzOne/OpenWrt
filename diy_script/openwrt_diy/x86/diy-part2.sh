@@ -127,6 +127,28 @@ clone_dir "$REPO_BRANCH" https://github.com/immortalwrt/packages zerotier nps so
 # 修复ramfree位置问题
 sed -i '/"order":/{s/\([0-9]\+\)/"\1"/}' $destination_dir/luci-app-ramfree/root/usr/share/luci/menu.d/luci-app-ramfree.json
 
+# ssr-plus
+clone_all https://github.com/fw876/helloworld
+
+# passwall
+clone_all https://github.com/Openwrt-Passwall/openwrt-passwall-packages
+clone_all https://github.com/Openwrt-Passwall/openwrt-passwall
+if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
+  cp -f $GITHUB_WORKSPACE/personal/shadowsocks-rust/Makefile $destination_dir/shadowsocks-rust/Makefile
+fi
+
+# passwall2
+# clone_all https://github.com/Openwrt-Passwall/openwrt-passwall2
+
+# Nikki
+clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
+
+# Momo
+clone_all https://github.com/nikkinikki-org/OpenWrt-momo
+
+# homeproxy
+# git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
+
 # aria2 & ariaNG
 clone_all https://github.com/sbwml/ariang-nginx
 git_clone 22.03 https://github.com/sbwml/feeds_packages_net_aria2 aria2
@@ -186,28 +208,6 @@ clone_all v5 https://github.com/sbwml/luci-app-mosdns
 # openlist
 git_clone https://github.com/sbwml/packages_lang_golang golang
 clone_all https://github.com/sbwml/luci-app-openlist
-
-# ssr-plus
-clone_all https://github.com/fw876/helloworld
-
-# passwall
-clone_all https://github.com/Openwrt-Passwall/openwrt-passwall-packages
-clone_all https://github.com/Openwrt-Passwall/openwrt-passwall
-if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
-  cp -f $GITHUB_WORKSPACE/personal/shadowsocks-rust/Makefile $destination_dir/shadowsocks-rust/Makefile
-fi
-
-# passwall2
-# clone_all https://github.com/Openwrt-Passwall/openwrt-passwall2
-
-# Nikki
-clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
-
-# Momo
-clone_all https://github.com/nikkinikki-org/OpenWrt-momo
-
-# homeproxy
-# git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
 
 # filemanager文件管理
 git_clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager
