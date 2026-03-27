@@ -12,7 +12,6 @@
 -  升级方法：下载好对应的版本（.img.gz），然后（openwrt-系统-备份/升级） *直接选择，不用解压
 # ==============================
 ## 项目说明 [![](https://img.shields.io/badge/-项目基本介绍-FFFFFF.svg)](#项目说明-)
-- 固件来源：[![Lean](https://img.shields.io/badge/Lede-Lean-red.svg?style=flat&logo=appveyor)](https://github.com/coolsnowwolf/lede) 
 - 项目使用 Github Actions 拉取 [Lean](https://github.com/coolsnowwolf/lede) [immortalwrt](https://github.com/immortalwrt/immortalwrt) [openwrt](https://github.com/openwrt/openwrt) 的 `Openwrt` 源码仓库进行云编译
 - ♨️【x86】Docker版（Kernel=32M，rootfs=5120M）和 无Docker版（Kernel=32M，rootfs=1668M）不通刷
 - 🔴arm 固件默认 IP 地址：`192.168.8.8` 默认密码：`password`
