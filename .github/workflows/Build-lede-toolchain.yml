@@ -38,7 +38,7 @@ jobs:
 
     - name: Compare Commit Hash
       id: cacheHash
-      uses: actions/cache@v4
+      uses: actions/cache@main
       with:
         path: .commitHash
         key: ${{ matrix.repo }}-${{ env.LITE_BRANCH }}-commitHash-${{ steps.getHash.outputs.commitHash }}
@@ -75,7 +75,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@main
 
     - name: Initialization Environment
       env:
