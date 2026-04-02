@@ -70,6 +70,10 @@ sed -i 's/<%:Down%>/<%:Move down%>/g' feeds/luci/modules/luci-compat/luasrc/view
 # luci-compat - remove extra line breaks from description
 sed -i '/<br \/>/d' feeds/luci/modules/luci-compat/luasrc/view/cbi/full_valuefooter.htm
 
+# luci-theme-bootstrap
+sed -i 's/font-size: 13px/font-size: 14px/g' feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap/cascade.css
+sed -i 's/9.75px/10.75px/g' feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap/cascade.css
+
 # 网络诊断
 sed -i "s/openwrt.org/www.qq.com/g" feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/diagnostics.js
 
@@ -115,9 +119,9 @@ if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
 fi
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
-# filebrowser luci-app-pushbot
+# luci-app-pushbot
 rm -rf feeds/packages/net/adguardhome
-clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
+clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-pushbot luci-app-poweroff
 
 # 判断 REPO_BRANCH 再设置
 REPO_BRANCH="${REPO_BRANCH:-master}"
@@ -145,6 +149,9 @@ git_clone https://github.com/asvow/luci-app-tailscale luci-app-tailscale
 clone_dir main https://github.com/sirpdboy/luci-app-watchdog.git luci-app-watchdog watchdog
 sed -i '/"admin\/control"[[:space:]]*:/,/^[[:space:]]*},/d' $destination_dir/luci-app-watchdog/root/usr/share/luci/menu.d/luci-app-watchdog.json
 sed -i 's#"admin/control/#"admin/services/#g' $destination_dir/luci-app-watchdog/root/usr/share/luci/menu.d/luci-app-watchdog.json
+
+# luci-app-adguardhome
+clone_dir https://github.com/sirpdboy/luci-app-adguardhome luci-app-adguardhome
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
