@@ -154,7 +154,7 @@ sed -i 's#"admin/control/#"admin/services/#g' $destination_dir/luci-app-watchdog
 clone_dir https://github.com/sirpdboy/luci-app-adguardhome luci-app-adguardhome
 grep -rlZE '/usr/bin/AdGuardHome($|[^/])' package feeds | while IFS= read -r -d '' f; do
     echo -n "Patching $f ..."
-    sed -i 's|/usr/bin/AdGuardHome\($\|[^/]\)|/usr/bin/AdGuardHome/AdGuardHome\1|g' "$f"
+    sed -i 's|/usr/bin/AdGuardHome|/usr/bin/AdGuardHome/AdGuardHome|g' "$f"
     echo " ✅"
 done
 
