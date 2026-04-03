@@ -60,8 +60,8 @@ sed -i 's/0666/0644/g;s/0777/0755/g' feeds/packages/net/samba4/files/smb.conf.te
 
 # samba工作组冲突
 WORKGROUP_NAME="WORKGROUP$(date +%s | tail -c 4)"
-sed -i "s/WORKGROUP/${WORKGROUP_NAME}/g" feeds/packages/net/samba4/files/samba.config
-sed -i "s/workgroup \"WORKGROUP\"/workgroup \"${WORKGROUP_NAME}\"/g" feeds/packages/net/samba4/files/samba.init
+sed -i 's/WORKGROUP/${WORKGROUP_NAME}/g' feeds/packages/net/samba4/files/samba.config
+sed -i 's/workgroup \"WORKGROUP\"/workgroup \"${WORKGROUP_NAME}\"/g' feeds/packages/net/samba4/files/samba.init
 
 # luci-compat - 修复上移下移按钮翻译
 sed -i 's/<%:Up%>/<%:Move up%>/g' feeds/luci/modules/luci-compat/luasrc/view/cbi/tblsection.htm
@@ -75,7 +75,7 @@ sed -i 's/font-size: 13px/font-size: 14px/g' feeds/luci/themes/luci-theme-bootst
 sed -i 's/9.75px/10.75px/g' feeds/luci/themes/luci-theme-bootstrap/htdocs/luci-static/bootstrap/cascade.css
 
 # 网络诊断
-sed -i "s/openwrt.org/www.qq.com/g" feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/diagnostics.js
+sed -i 's/openwrt.org/www.qq.com/g' feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/diagnostics.js
 
 # 修复procps-ng-top导致首页cpu使用率无法获取
 sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci
