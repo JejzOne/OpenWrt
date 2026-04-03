@@ -152,6 +152,11 @@ sed -i 's#"admin/control/#"admin/services/#g' $destination_dir/luci-app-watchdog
 
 # luci-app-adguardhome
 clone_dir https://github.com/sirpdboy/luci-app-adguardhome luci-app-adguardhome
+grep -rlZE '/usr/bin/AdGuardHome($|[^/])' package feeds | while IFS= read -r -d '' f; do
+    echo -n "Patching $f ..."
+    sed -i 's|/usr/bin/AdGuardHome\($\|[^/]\)|/usr/bin/AdGuardHome/AdGuardHome\1|g' "$f"
+    echo " ✅"
+done
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
