@@ -234,10 +234,15 @@ git_clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager
 # netspeedtest网络测试
 clone_dir main https://github.com/sbwml/openwrt_pkgs luci-app-netspeedtest speedtest-cli
 
-# 报错修复
+#### 报错修复
 # rm -rf feeds/packages/utils/v2dat
 # cp -f $GITHUB_WORKSPACE/personal/xray-core/Makefile feeds/packages/net/xray-core/Makefile
 clone_dir https://github.com/sbwml/openwrt_helloworld xray-core
+grep -rl 'kmod-iptables' . | while read -r f; do
+  echo -n "Patching $f ..."
+  sed -i 's/kmod-iptables/d' "$f"
+  echo " ✅"
+done
 
 # openclash
 clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
