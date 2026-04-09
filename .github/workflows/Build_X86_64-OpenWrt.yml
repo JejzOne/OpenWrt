@@ -186,8 +186,6 @@ jobs:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
     runs-on: ubuntu-22.04
-    env:
-      CONFIG_FILE: config/openwrt_config/x86-618.config
     
     steps:
     - name: Checkout
@@ -298,6 +296,8 @@ jobs:
         sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1668/g' .config
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.18/g' target/linux/x86/Makefile
+
+        cp -f $GITHUB_WORKSPACE/personal/netfilter.mk package/kernel/linux/modules/netfilter.mk
         
         $GITHUB_WORKSPACE/$DIY_P2_SH
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
