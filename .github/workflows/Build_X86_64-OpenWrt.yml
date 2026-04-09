@@ -297,8 +297,6 @@ jobs:
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.18/g' target/linux/x86/Makefile
 
-        cp -f $GITHUB_WORKSPACE/personal/netfilter.mk package/kernel/linux/modules/netfilter.mk
-        
         $GITHUB_WORKSPACE/$DIY_P2_SH
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
