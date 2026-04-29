@@ -186,8 +186,6 @@ jobs:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
     runs-on: ubuntu-22.04
-    env:
-      CONFIG_FILE: config/openwrt_config/x86-618.config
     
     steps:
     - name: Checkout
