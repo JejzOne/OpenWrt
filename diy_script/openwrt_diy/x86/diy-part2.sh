@@ -204,7 +204,7 @@ git_clone https://github.com/sbwml/packages_lang_golang golang
 clone_all https://github.com/sbwml/luci-app-openlist
 
 # ssr-plus
-clone_all https://github.com/fw876/helloworld !mosdns !microsocks !mihomo
+clone_all master https://github.com/fw876/helloworld !mosdns !microsocks !mihomo
 
 # passwall
 clone_all https://github.com/Openwrt-Passwall/openwrt-passwall-packages !microsocks
