@@ -88,8 +88,8 @@ define KernelPackage/nf-ipt6
   SUBMENU:=$(NF_MENU)
   TITLE:=Ip6tables core
   KCONFIG:=$(KCONFIG_NF_IPT6)
-  FILES:=$(foreach mod,$(NF_IPT6-m),$(LINUX_DIR)/net/$(mod).ko)
-  AUTOLOAD:=$(call AutoProbe,$(notdir $(NF_IPT6-m)))
+  FILES:=$(foreach mod,$(filter-out ip_tables x_tables,$(NF_IPT6-m)),$(LINUX_DIR)/net/$(mod).ko)
+  AUTOLOAD:=$(call AutoProbe,$(filter-out ip_tables x_tables,$(notdir $(NF_IPT6-m))))
   DEPENDS:=+kmod-nf-ipt +kmod-nf-log6
 endef
 
