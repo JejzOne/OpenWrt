@@ -197,8 +197,8 @@ clone_all() {
 
 # 修复kmod-iptables问题
 fix_netfilter_kmod_clash() {
-    local include_netfilter_mk="$BUILD_DIR/include/netfilter.mk"
-    local netfilter_mk="$BUILD_DIR/package/kernel/linux/modules/netfilter.mk"
+    local include_netfilter_mk="include/netfilter.mk"
+    local netfilter_mk="package/kernel/linux/modules/netfilter.mk"
 
     if [ ! -f "$include_netfilter_mk" ]; then
         echo "Netfilter include file not found: $include_netfilter_mk" >&2
