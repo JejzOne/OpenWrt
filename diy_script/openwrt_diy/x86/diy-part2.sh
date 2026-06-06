@@ -237,7 +237,7 @@ clone_dir main https://github.com/sbwml/openwrt_pkgs luci-app-netspeedtest speed
 #### 报错修复
 # rm -rf feeds/packages/utils/v2dat
 # cp -f $GITHUB_WORKSPACE/personal/xray-core/Makefile feeds/packages/net/xray-core/Makefile
-clone_dir https://github.com/sbwml/openwrt_helloworld xray-core
+clone_dir https://github.com/sbwml/openwrt_helloworld xray-core shadowsocks-libev shadowsocks-rust shadowsocksr-libev
 if [ "$REPO_BRANCH" == "master" ]; then
     echo -n "Repair kmod-iptables ......"
     # cp -f $GITHUB_WORKSPACE/personal/netfilter.mk package/kernel/linux/modules/netfilter.mk
