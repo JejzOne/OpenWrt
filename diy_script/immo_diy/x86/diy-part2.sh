@@ -76,12 +76,6 @@ for f in $(grep -rl 'luci-app-attendedsysupgrade' package feeds | grep 'Makefile
     echo "✅"
 done
 
-# 报错修复
-# sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
-if [ "$REPO_BRANCH" == "master" ]; then
-  rm -rf feeds/packages/lang/lua/lua-neturl
-fi
-
 # rust(ci false)
 if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
   # sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
@@ -184,6 +178,18 @@ git_clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager
 # netspeedtest网络测试
 clone_dir main https://github.com/sbwml/openwrt_pkgs luci-app-netspeedtest speedtest-cli
 
+#### 报错修复
+# sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
+if [ "$REPO_BRANCH" == "master" ]; then
+  rm -rf feeds/packages/lang/lua/lua-neturl
+fi
+clone_dir https://github.com/sbwml/openwrt_helloworld xray-core shadowsocks-libev shadowsocks-rust shadowsocksr-libev
+if [ "$REPO_BRANCH" == "master" ]; then
+    echo -n "Repair kmod-iptables ......"
+    fix_netfilter_kmod_clash
+    echo "✅"
+fi
+
 # openclash
 clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
 # clone_dir dev https://github.com/vernesong/OpenClash luci-app-openclash
@@ -193,8 +199,8 @@ make && sudo make install
 popd
 
 # 添加主题
-git_clone https://github.com/sirpdboy/luci-theme-kucat
-git_clone https://github.com/sirpdboy/luci-app-kucat-config
+# git_clone https://github.com/sirpdboy/luci-theme-kucat
+# git_clone https://github.com/sirpdboy/luci-app-kucat-config
 git_clone https://github.com/eamonxg/luci-theme-aurora
 git_clone https://github.com/eamonxg/luci-app-aurora-config
 # git_clone https://github.com/kiddin9/luci-theme-edge
