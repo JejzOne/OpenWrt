@@ -258,6 +258,9 @@ done
 default_theme='argon'
 sed -i "s/bootstrap/$default_theme/g" feeds/luci/modules/luci-base/root/etc/config/luci
 
+# 更改 argon主题设置 顺序
+sed -i 's/"order"[[:space:]]*:[[:space:]]*85/"order": 90/g' feeds/luci/applications/luci-app-argon-config/root/usr/share/luci/menu.d/luci-app-argon-config.json
+
 # 更改 aurora主题设置 顺序
 sed -i 's/"order"[[:space:]]*:[[:space:]]*100/"order": 90/g' $destination_dir/luci-app-aurora-config/root/usr/share/luci/menu.d/luci-app-aurora.json
 
