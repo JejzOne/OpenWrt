@@ -254,8 +254,8 @@ make && sudo make install
 popd
 
 # argon 主题
-git_clone https://github.com/sirpdboy/luci-theme-kucat
-git_clone https://github.com/sirpdboy/luci-app-kucat-config
+# git_clone https://github.com/sirpdboy/luci-theme-kucat
+# git_clone https://github.com/sirpdboy/luci-app-kucat-config
 git_clone https://github.com/eamonxg/luci-theme-aurora
 git_clone https://github.com/eamonxg/luci-app-aurora-config
 # git_clone https://github.com/kiddin9/luci-theme-edge
