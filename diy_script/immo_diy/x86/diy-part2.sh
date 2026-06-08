@@ -88,7 +88,7 @@ fi
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
-clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
+clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-pushbot luci-app-poweroff
 
 # 修复ramfree位置问题
 sed -i '/"order":/{s/\([0-9]\+\)/"\1"/}' package/feeds/luci/luci-app-ramfree/root/usr/share/luci/menu.d/luci-app-ramfree.json
@@ -108,6 +108,14 @@ git_clone https://github.com/asvow/luci-app-tailscale luci-app-tailscale
 clone_dir main https://github.com/sirpdboy/luci-app-watchdog.git luci-app-watchdog watchdog
 sed -i '/"admin\/control"[[:space:]]*:/,/^[[:space:]]*},/d' $destination_dir/luci-app-watchdog/root/usr/share/luci/menu.d/luci-app-watchdog.json
 sed -i 's#"admin/control/#"admin/services/#g' $destination_dir/luci-app-watchdog/root/usr/share/luci/menu.d/luci-app-watchdog.json
+
+# luci-app-adguardhome
+clone_dir https://github.com/sirpdboy/luci-app-adguardhome luci-app-adguardhome
+grep -rlZE '/usr/bin/AdGuardHome($|[^/])' package feeds | while IFS= read -r -d '' f; do
+    echo -n "Patching $f ..."
+    sed -i 's|/usr/bin/AdGuardHome|/usr/bin/AdGuardHome/AdGuardHome|g' "$f"
+    echo " ✅"
+done
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
