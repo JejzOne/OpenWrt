@@ -295,6 +295,7 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-nikki-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_18=y/g' .config
 
@@ -611,6 +612,7 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-nikki-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_12=y/g' .config
 
@@ -925,6 +927,7 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-nikki-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_6=y/g' .config
 
@@ -1239,6 +1242,7 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-nikki-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_15=y/g' .config
 
@@ -1551,6 +1555,7 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-nikki-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_18=y/g' .config
         
