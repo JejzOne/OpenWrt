@@ -4,7 +4,7 @@
 
 AGH_CORE=$(curl -sL https://api.github.com/repos/AdguardTeam/AdGuardHome/releases/latest | grep -oE "https://[^ ]*AdGuardHome_linux_${1}\.tar\.gz" | head -n1)
 
-if [ -z "$AGH_CORE" ]; then
+if [[ -z "$AGH_CORE" || "$AGH_CORE" != *.tar.gz ]]; then
   echo "⚠️ 未找到适用于 ${1} 的 AdGuardHome 下载链接！"
   LATEST_TAG=$(curl -sL https://api.github.com/repos/AdguardTeam/AdGuardHome/releases/latest | grep '"tag_name"' | awk -F '"' '{print $4}')
   if echo "$LATEST_TAG" | grep -Eq '^v[0-9]+(\.[0-9]+)*$'; then
@@ -15,6 +15,8 @@ if [ -z "$AGH_CORE" ]; then
   fi
   AGH_CORE="https://github.com/AdguardTeam/AdGuardHome/releases/download/${LATEST_TAG}/AdGuardHome_linux_${1}.tar.gz"
   echo "✅ 已启用备用下载地址"
+else
+    echo "✅ 已获取最新适用于 ${1} 的 AdGuardHome 下载链接"
 fi
 
 echo "📥 下载地址: $AGH_CORE"
