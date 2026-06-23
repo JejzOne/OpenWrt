@@ -77,14 +77,15 @@ for f in $(grep -rl 'luci-app-attendedsysupgrade' package feeds | grep 'Makefile
 done
 
 # rust(ci false)
-if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
+git_clone https://github.com/sbwml/packages_lang_rust rust
+# if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
   # sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
-  if ! grep -q -- '--ci[[:space:]]\+false' feeds/packages/lang/rust/Makefile; then
-    echo -n "Repair rust ..."
-    sed -i 's/--build-dir\ $(HOST_BUILD_DIR)\/build/--build-dir\ $(HOST_BUILD_DIR)\/build\ \\\n\		--ci\ false/' feeds/packages/lang/rust/Makefile
-    echo "✅"
-  fi
-fi
+#  if ! grep -q -- '--ci[[:space:]]\+false' feeds/packages/lang/rust/Makefile; then
+ #   echo -n "Repair rust ..."
+ #   sed -i 's/--build-dir\ $(HOST_BUILD_DIR)\/build/--build-dir\ $(HOST_BUILD_DIR)\/build\ \\\n\		--ci\ false/' feeds/packages/lang/rust/Makefile
+ #   echo "✅"
+#  fi
+# fi
 
 # frpc加入开关
 sed -i 's/procd_set_param stdout $stdout/procd_set_param stdout 0/g' feeds/packages/net/frp/files/frpc.init
