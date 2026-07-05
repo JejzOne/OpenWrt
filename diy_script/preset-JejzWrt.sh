@@ -41,6 +41,8 @@ cpu_temp=$(cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null | awk '{printf 
 disk_usage=$(df -h / | awk '/\// {printf "%s of %s", $5, $2}')
 
 # 获取接口状态（仅 lan / wan）
+ifname=$(uci -q get network.lan.ifname ) 
+[ "x$ifname" = "x" ] && ifname="device" || ifname="ifname" 
 get_net_status() {
     eth_info=()
     echo -e "\e[96m当前网卡状态 (Network Interfaces Status):\e[0m"
@@ -93,6 +95,7 @@ color_output() {
 
 # 打印脚本头部，增加美观
 print_header() {
+    clear
     color_output "\e[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\e[0m"
     color_output "\e[36m\       _      _   __          __   _        / \e[0m"
     color_output "\e[36m\      | |    (_)  \ \        / /  | |       / \e[0m"
