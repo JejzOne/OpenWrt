@@ -76,6 +76,9 @@ for f in $(grep -rl 'luci-app-attendedsysupgrade' package feeds | grep 'Makefile
     echo "✅"
 done
 
+# 隐藏“系统”栏中的“Plugins”
+REMOVE_LUCI_MENU_ENTRY "admin/system/plugins" "system/plugins"
+
 # rust(ci false)
 if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
   git_clone https://github.com/sbwml/packages_lang_rust rust
