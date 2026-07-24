@@ -195,6 +195,47 @@ clone_all() {
     rm -rf "$temp_dir"
 }
 
+# 移除LUCI菜单项
+REMOVE_LUCI_MENU_ENTRY() {
+	local ROUTE=$1
+	local VIEW=${2:-}
+
+	if [ ! -d "../feeds/luci" ]; then
+		return
+	fi
+
+	find ../feeds/luci ./ -type f -path "*/root/usr/share/luci/menu.d/*.json" -print0 2>/dev/null | while IFS= read -r -d '' MENU_FILE; do
+		if ! grep -q "\"$ROUTE\"\|\"$VIEW\"" "$MENU_FILE"; then
+			continue
+		fi
+
+		local OLD_COUNT
+		local NEW_COUNT
+		local TMP_FILE
+
+		OLD_COUNT=$(jq 'length' "$MENU_FILE")
+		TMP_FILE=$(mktemp)
+
+		jq --arg route "$ROUTE" --arg view "$VIEW" '
+			with_entries(
+				select(
+					.key != $route
+					and ((.value.action.path? // "") != $view)
+					and ((.value.path? // "") != $view)
+				)
+			)
+		' "$MENU_FILE" > "$TMP_FILE"
+
+		NEW_COUNT=$(jq 'length' "$TMP_FILE")
+		if [ "$NEW_COUNT" != "$OLD_COUNT" ]; then
+			mv -f "$TMP_FILE" "$MENU_FILE"
+			echo "remove luci menu entry: $ROUTE ($MENU_FILE)"
+		else
+			rm -f "$TMP_FILE"
+		fi
+	done
+}
+
 # 修复kmod-iptables问题
 fix_netfilter_kmod_clash() {
     local include_netfilter_mk="include/netfilter.mk"
