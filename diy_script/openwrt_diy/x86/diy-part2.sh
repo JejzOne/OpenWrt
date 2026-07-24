@@ -95,6 +95,9 @@ for f in $(grep -rl 'luci-app-attendedsysupgrade' package feeds | grep 'Makefile
     echo "✅"
 done
 
+# 隐藏“系统”栏中的“Plugins”
+REMOVE_LUCI_MENU_ENTRY "admin/system/plugins" "system/plugins"
+
 # 加入autocore
 if [ "$REPO_BRANCH" = "openwrt-23.05" ] || [ "$REPO_BRANCH" = "openwrt-24.10" ]; then
     git clone -b "$REPO_BRANCH" --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
