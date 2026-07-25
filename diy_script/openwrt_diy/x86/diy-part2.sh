@@ -98,6 +98,10 @@ done
 # 隐藏“系统”栏中的“Plugins”
 REMOVE_LUCI_MENU_ENTRY "admin/system/plugins" "system/plugins"
 
+# ssh访问绑定接口去✓
+sed -i "s/option _direct '1'/option _direct '0'/g" package/network/services/dropbear/files/dropbear.config
+
+
 # 加入autocore
 if [ "$REPO_BRANCH" = "openwrt-23.05" ] || [ "$REPO_BRANCH" = "openwrt-24.10" ]; then
     git clone -b "$REPO_BRANCH" --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
