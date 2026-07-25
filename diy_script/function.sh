@@ -200,11 +200,11 @@ REMOVE_LUCI_MENU_ENTRY() {
 	local ROUTE=$1
 	local VIEW=${2:-}
 
-	if [ ! -d "../feeds/luci" ]; then
+	if [ ! -d "feeds/luci" ]; then
 		return
 	fi
 
-	find ../feeds/luci ./ -type f -path "*/root/usr/share/luci/menu.d/*.json" -print0 2>/dev/null | while IFS= read -r -d '' MENU_FILE; do
+	find feeds/luci ./ -type f -path "*/root/usr/share/luci/menu.d/*.json" -print0 2>/dev/null | while IFS= read -r -d '' MENU_FILE; do
 		if ! grep -q "\"$ROUTE\"\|\"$VIEW\"" "$MENU_FILE"; then
 			continue
 		fi
