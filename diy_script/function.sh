@@ -298,6 +298,23 @@ fix_netfilter_kmod_clash() {
     return 1
 }
 
+# 检测指令集架构
+detect_openwrt_arch() {
+    local config="${1:-.config}"
+    local arch_pkgs=$(grep '^CONFIG_TARGET_ARCH_PACKAGES=' "$config" | cut -d'"' -f2)
+    [ -n "$arch_pkgs" ] || return 1
+    case "$arch_pkgs" in
+        x86_64) echo "amd64" ;; i386*) echo "386" ;; aarch64*) echo "arm64" ;;
+        arm_cortex-a*) echo "armv7" ;; arm_arm1176*|arm_mpcore*) echo "armv6" ;;
+        arm_arm926*|arm_fa526|arm*xscale) echo "armv5" ;;
+        mips64el_*) echo "mips64le" ;; mips64_*) echo "mips64" ;;
+        mipsel_*) echo "mipsle" ;; mips_*) echo "mips" ;;
+        riscv64*) echo "riscv64" ;; loongarch64*) echo "loong64" ;;
+        powerpc64_*) echo "ppc64" ;; powerpc_*) echo "ppc" ;;
+        arc_*) echo "arc" ;; *) echo "unknown" ;;
+    esac
+}
+
 # 源仓库与分支
 SOURCE_REPO=$(basename $REPO_URL)
 echo "SOURCE_REPO=$SOURCE_REPO" >>$GITHUB_ENV
@@ -357,11 +374,13 @@ if [ -z "$DEVICE_TARGET" ] || [ "$DEVICE_TARGET" == "-" ]; then
   echo "🔷 源码分支: $(color cc "$REPO_BRANCH")"
   echo "========================================"
 else
+  CPU_ARCH=$(detect_openwrt_arch ".config")
   echo -e "$(color cy "📊 当前编译信息")"
   echo "========================================"
   echo "🔷 固件源码: $(color cc "$SOURCE_REPO")"
   echo "🔷 源码分支: $(color cc "$REPO_BRANCH")"
   echo "🔷 目标设备: $(color cc "$DEVICE_TARGET")"
   echo "🔷 内核版本: $(color cc "$KERNEL_VERSION")"
+  echo "🔷 编译架构: $(color cc "$CPU_ARCH")"
   echo "========================================"
 fi
