@@ -79,6 +79,9 @@ done
 # 隐藏“系统”栏中的“Plugins”
 REMOVE_LUCI_MENU_ENTRY "admin/system/plugins" "system/plugins"
 
+# ssh访问绑定接口去✓
+sed -i "s/option _direct '1'/option _direct '0'/g" package/network/services/dropbear/files/dropbear.config
+
 # rust(ci false)
 if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
   git_clone https://github.com/sbwml/packages_lang_rust rust
