@@ -117,8 +117,8 @@ jobs:
       - name: Generate Tag Name
         id: gen_release_tag
         run: |
-          sudo -E systemctl daemon-reload
-          sudo timedatectl set-timezone "$TZ"
+          sudo ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+          echo "$TZ" | sudo tee /etc/timezone
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
 
@@ -222,8 +222,8 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo -E systemctl daemon-reload
-        sudo timedatectl set-timezone "$TZ"
+        sudo ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+        echo "$TZ" | sudo tee /etc/timezone
         df -Th
         
     - name: Combine Disks
@@ -536,8 +536,8 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo -E systemctl daemon-reload
-        sudo timedatectl set-timezone "$TZ"
+        sudo ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+        echo "$TZ" | sudo tee /etc/timezone
         df -Th
         
     - name: Combine Disks
@@ -849,8 +849,8 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo -E systemctl daemon-reload
-        sudo timedatectl set-timezone "$TZ"
+        sudo ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+        echo "$TZ" | sudo tee /etc/timezone
         df -Th
         
     - name: Combine Disks
@@ -1162,8 +1162,8 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo -E systemctl daemon-reload
-        sudo timedatectl set-timezone "$TZ"
+        sudo ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+        echo "$TZ" | sudo tee /etc/timezone
         df -Th
         
     - name: Combine Disks
@@ -1473,8 +1473,8 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo -E systemctl daemon-reload
-        sudo timedatectl set-timezone "$TZ"
+        sudo ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+        echo "$TZ" | sudo tee /etc/timezone
         df -Th
         
     - name: Combine Disks
