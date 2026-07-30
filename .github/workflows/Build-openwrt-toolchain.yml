@@ -16,7 +16,7 @@ on:
 
 jobs:
   Checka:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: check ${{ matrix.repo }} ${{ matrix.branch }}
     strategy:
       fail-fast: false
