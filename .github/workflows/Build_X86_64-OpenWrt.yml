@@ -117,6 +117,7 @@ jobs:
       - name: Generate Tag Name
         id: gen_release_tag
         run: |
+          sudo -E systemctl daemon-reload
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
@@ -185,7 +186,7 @@ jobs:
   Build_x86_64:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     
     steps:
     - name: Checkout
@@ -213,18 +214,15 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo -E swapoff -a
-        sudo -E rm -f /swapfile
-        sudo -E snap set system refresh.retain=2
-        sudo -E rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E rm -rf /usr/share/dotnet /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
-        sudo rm -rf ~/{.cargo,.dotnet,.rustup}
+        sudo -E systemctl daemon-reload
         sudo timedatectl set-timezone "$TZ"
         df -Th
         
@@ -500,7 +498,7 @@ jobs:
   Build_x86_64_2512:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates2512 == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       REPO_BRANCH: openwrt-25.12
 
@@ -530,18 +528,15 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo -E swapoff -a
-        sudo -E rm -f /swapfile
-        sudo -E snap set system refresh.retain=2
-        sudo -E rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E rm -rf /usr/share/dotnet /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
-        sudo rm -rf ~/{.cargo,.dotnet,.rustup}
+        sudo -E systemctl daemon-reload
         sudo timedatectl set-timezone "$TZ"
         df -Th
         
@@ -816,7 +811,7 @@ jobs:
   Build_x86_64_2410:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates2410 == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       REPO_BRANCH: openwrt-24.10
 
@@ -846,18 +841,15 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo -E swapoff -a
-        sudo -E rm -f /swapfile
-        sudo -E snap set system refresh.retain=2
-        sudo -E rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E rm -rf /usr/share/dotnet /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
-        sudo rm -rf ~/{.cargo,.dotnet,.rustup}
+        sudo -E systemctl daemon-reload
         sudo timedatectl set-timezone "$TZ"
         df -Th
         
@@ -1132,7 +1124,7 @@ jobs:
   Build_x86_64_515:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       REPO_BRANCH: openwrt-23.05
 
@@ -1162,18 +1154,15 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo -E swapoff -a
-        sudo -E rm -f /swapfile
-        sudo -E snap set system refresh.retain=2
-        sudo -E rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E rm -rf /usr/share/dotnet /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
-        sudo rm -rf ~/{.cargo,.dotnet,.rustup}
+        sudo -E systemctl daemon-reload
         sudo timedatectl set-timezone "$TZ"
         df -Th
         
@@ -1448,7 +1437,7 @@ jobs:
   Build_x86_64_docker:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdatesD == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout
@@ -1476,18 +1465,15 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo -E swapoff -a
-        sudo -E rm -f /swapfile
-        sudo -E snap set system refresh.retain=2
-        sudo -E rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E rm -rf /usr/share/dotnet /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get autoclean
         sudo -E apt-get clean
-        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
-        sudo rm -rf ~/{.cargo,.dotnet,.rustup}
+        sudo -E systemctl daemon-reload
         sudo timedatectl set-timezone "$TZ"
         df -Th
         
