@@ -117,8 +117,8 @@ jobs:
       - name: Generate Tag Name
         id: gen_release_tag
         run: |
-          sudo -E systemctl daemon-reload
-          sudo timedatectl set-timezone "$TZ"
+          sudo ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+          echo "$TZ" | sudo tee /etc/timezone
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
 
