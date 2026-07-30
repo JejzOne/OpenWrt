@@ -16,7 +16,7 @@ on:
 
 jobs:
   Checka:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     name: check ${{ matrix.repo }} ${{ matrix.branch }}
     strategy:
       fail-fast: false
@@ -55,7 +55,7 @@ jobs:
         echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [Checka]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
     name: build ${{ matrix.branch }} ${{ matrix.target }}
@@ -82,7 +82,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         (sudo -E apt-get -y update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get -y clean) &
         sudo timedatectl set-timezone "$TZ"
