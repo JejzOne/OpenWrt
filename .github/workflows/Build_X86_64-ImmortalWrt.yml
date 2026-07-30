@@ -185,7 +185,7 @@ jobs:
   Build_x86_64:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout
@@ -220,12 +220,12 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
         sudo rm -rf ~/{.cargo,.dotnet,.rustup}
-        sudo timedatectl set-timezone "$TZ" || true
+        sudo timedatectl set-timezone "$TZ"
         df -Th
         
     - name: Combine Disks
@@ -500,7 +500,7 @@ jobs:
   Build_x86_64_2512:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates2512 == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       REPO_BRANCH: openwrt-25.12
 
@@ -537,12 +537,12 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
         sudo rm -rf ~/{.cargo,.dotnet,.rustup}
-        sudo timedatectl set-timezone "$TZ" || true
+        sudo timedatectl set-timezone "$TZ"
         df -Th
         
     - name: Combine Disks
@@ -815,7 +815,7 @@ jobs:
   Build_x86_64_2410:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates2410 == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       REPO_BRANCH: openwrt-24.10
 
@@ -852,7 +852,7 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
@@ -1130,7 +1130,7 @@ jobs:
   Build_x86_64_515:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       REPO_BRANCH: openwrt-23.05
 
@@ -1167,7 +1167,7 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
@@ -1445,7 +1445,7 @@ jobs:
   Build_x86_64_docker:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdatesD == 'true'}}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout
@@ -1480,7 +1480,7 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
