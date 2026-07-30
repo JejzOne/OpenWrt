@@ -225,7 +225,7 @@ jobs:
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
         sudo rm -rf ~/{.cargo,.dotnet,.rustup}
-        sudo timedatectl set-timezone "$TZ"
+        sudo timedatectl set-timezone "$TZ" || true
         df -Th
         
     - name: Combine Disks
@@ -542,7 +542,7 @@ jobs:
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
         sudo rm -rf ~/{.cargo,.dotnet,.rustup}
-        sudo timedatectl set-timezone "$TZ"
+        sudo timedatectl set-timezone "$TZ" || true
         df -Th
         
     - name: Combine Disks
