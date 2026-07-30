@@ -100,7 +100,7 @@ REMOVE_LUCI_MENU_ENTRY "admin/system/plugins" "system/plugins"
 
 # ssh访问绑定接口去✓
 sed -i "s/option _direct '1'/option _direct '0'/g" package/network/services/dropbear/files/dropbear.config
-
+sed -i "s/DirectInterface/Interface/g" package/network/services/dropbear/files/dropbear.config
 
 # 加入autocore
 if [ "$REPO_BRANCH" = "openwrt-23.05" ] || [ "$REPO_BRANCH" = "openwrt-24.10" ]; then
