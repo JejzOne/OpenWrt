@@ -85,8 +85,8 @@ jobs:
         sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2404)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get -y clean) &
-        sudo -E systemctl daemon-reload
-        sudo timedatectl set-timezone "$TZ"
+        sudo ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+        echo "$TZ" | sudo tee /etc/timezone
 
     - name: Clone Source Code
       run: |
