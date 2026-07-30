@@ -499,7 +499,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_2512:
     needs: [Checka,job_init]
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates2410 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates2512 == 'true'}}
     runs-on: ubuntu-22.04
     env:
       REPO_BRANCH: openwrt-25.12
