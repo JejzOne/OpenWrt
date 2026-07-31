@@ -175,7 +175,6 @@ sed -i '/"admin\/control"[[:space:]]*:/,/^[[:space:]]*},/d' $destination_dir/luc
 sed -i 's#"admin/control/#"admin/services/#g' $destination_dir/luci-app-watchdog/root/usr/share/luci/menu.d/luci-app-watchdog.json
 
 # luci-app-adguardhome
-rm -rf feeds/packages/net/adguardhome
 clone_dir https://github.com/sirpdboy/luci-app-adguardhome luci-app-adguardhome
 grep -rlZE '/usr/bin/AdGuardHome($|[^/])' package feeds | while IFS= read -r -d '' f; do
     echo -n "Patching $f ..."
