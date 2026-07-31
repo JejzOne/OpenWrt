@@ -141,9 +141,11 @@ curl -s https://raw.githubusercontent.com/sbwml/r4s_build_script/refs/heads/mast
 curl -s https://raw.githubusercontent.com/sbwml/r4s_build_script/refs/heads/master/openwrt/patch/luci/applications/luci-app-frpc/002-luci-app-frpc-add-enable-flag.patch | patch -p1
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
-# luci-app-pushbot
-rm -rf feeds/packages/net/adguardhome
-clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-pushbot luci-app-poweroff
+# 关机
+git_clone https://github.com/esirplayground/luci-app-poweroff.git luci-app-poweroff
+
+# 全能推送
+git_clone https://github.com/zzsj0928/luci-app-pushbot.git luci-app-pushbot
 
 # 判断 REPO_BRANCH 再设置
 REPO_BRANCH="${REPO_BRANCH:-master}"
@@ -173,6 +175,7 @@ sed -i '/"admin\/control"[[:space:]]*:/,/^[[:space:]]*},/d' $destination_dir/luc
 sed -i 's#"admin/control/#"admin/services/#g' $destination_dir/luci-app-watchdog/root/usr/share/luci/menu.d/luci-app-watchdog.json
 
 # luci-app-adguardhome
+rm -rf feeds/packages/net/adguardhome
 clone_dir https://github.com/sirpdboy/luci-app-adguardhome luci-app-adguardhome
 grep -rlZE '/usr/bin/AdGuardHome($|[^/])' package feeds | while IFS= read -r -d '' f; do
     echo -n "Patching $f ..."
