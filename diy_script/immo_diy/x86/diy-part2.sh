@@ -159,8 +159,13 @@ clone_all https://github.com/sbwml/OpenAppFilter
 # autotimeset 定时
 # git_clone https://github.com/sirpdboy/luci-app-autotimeset
 
-# dockerman
-# clone_dir https://github.com/lisaac/luci-app-dockerman luci-app-dockerman
+# docker
+git_clone https://github.com/sbwml/luci-app-dockerman luci-app-dockerman
+git_clone https://github.com/sbwml/packages_utils_docker docker
+git_clone https://github.com/sbwml/packages_utils_dockerd dockerd
+git_clone https://github.com/sbwml/packages_utils_containerd containerd
+git_clone https://github.com/sbwml/packages_utils_runc runc
+
 
 # unblockneteasemusic
 # git_clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic
