@@ -206,7 +206,7 @@ clone_dir main https://github.com/sbwml/openwrt_pkgs luci-app-netspeedtest speed
 if [ "$REPO_BRANCH" == "master" ]; then
   rm -rf feeds/packages/lang/lua/lua-neturl
 fi
-clone_dir https://github.com/sbwml/openwrt_helloworld xray-core shadowsocks-libev shadowsocks-rust shadowsocksr-libev
+clone_dir https://github.com/sbwml/openwrt_helloworld xray-core shadowsocks-libev shadowsocks-rust shadowsocksr-libev sing-box
 if [ "$REPO_BRANCH" == "master" ]; then
     echo -n "Repair kmod-iptables ......"
     fix_netfilter_kmod_clash
