@@ -227,9 +227,6 @@ clone_all https://github.com/fw876/helloworld !mosdns !microsocks !mihomo
 # passwall
 clone_all https://github.com/Openwrt-Passwall/openwrt-passwall-packages !microsocks
 clone_all https://github.com/Openwrt-Passwall/openwrt-passwall
-if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
-  cp -f $GITHUB_WORKSPACE/personal/shadowsocks-rust/Makefile $destination_dir/shadowsocks-rust/Makefile
-fi
 
 # passwall2
 # clone_all https://github.com/Openwrt-Passwall/openwrt-passwall2
@@ -255,7 +252,7 @@ clone_dir main https://github.com/sbwml/openwrt_pkgs luci-app-netspeedtest speed
 #### 报错修复
 # rm -rf feeds/packages/utils/v2dat
 # cp -f $GITHUB_WORKSPACE/personal/xray-core/Makefile feeds/packages/net/xray-core/Makefile
-clone_dir https://github.com/sbwml/openwrt_helloworld xray-core shadowsocks-libev shadowsocks-rust shadowsocksr-libev sing-box
+clone_dir https://github.com/sbwml/openwrt_helloworld xray-core shadowsocks-libev shadowsocks-rust sing-box
 if [ "$REPO_BRANCH" == "master" ]; then
     echo -n "Repair kmod-iptables ......"
     # cp -f $GITHUB_WORKSPACE/personal/netfilter.mk package/kernel/linux/modules/netfilter.mk
