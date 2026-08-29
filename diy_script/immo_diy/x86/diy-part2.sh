@@ -215,6 +215,7 @@ if [ "$REPO_BRANCH" == "master" ]; then
 fi
 mkdir -p feeds/packages/utils/dockerd/patches
 wget -O ./feeds/packages/utils/dockerd/patches/001-skip-copy-nested-binaries.patch https://raw.githubusercontent.com/AndyChiang888/packages/fe37485e1fb0b4b09a954174509ce782459590a2/utils/dockerd/patches/001-skip-copy-nested-binaries.patch
+sed -i 's/^PKG_RELEASE:=1$/PKG_RELEASE:=2/' feeds/packages/utils/dockerd/Makefile
 
 # openclash
 clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
