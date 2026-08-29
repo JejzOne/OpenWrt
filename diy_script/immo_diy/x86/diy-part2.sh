@@ -213,6 +213,8 @@ if [ "$REPO_BRANCH" == "master" ]; then
     fix_netfilter_kmod_clash
     echo "✅"
 fi
+mkdir -p feeds/packages/utils/dockerd/patches
+wget -O ./feeds/packages/utils/dockerd/patches/001-skip-copy-nested-binaries.patch https://raw.githubusercontent.com/AndyChiang888/packages/refs/heads/dockerd/utils/dockerd/patches/001-skip-copy-nested-binaries.patch
 
 # openclash
 clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
