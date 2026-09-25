@@ -129,9 +129,9 @@ sed -i '/\/etc\/init\.d\/tailscale/d;/\/etc\/config\/tailscale/d;' feeds/package
 git_clone https://github.com/asvow/luci-app-tailscale luci-app-tailscale
 if [ -d package/feeds/packages/tailscale ]; then
     rm -rf package/feeds/packages/tailscale
-    echo "  Removed package/feeds/packages/tailscale"
+    echo "Removed package/feeds/packages/tailscale"
 else
-    echo "  No package/feeds/packages/tailscale found, nothing to do"
+    echo "No package/feeds/packages/tailscale found, nothing to do"
 fi
 
 # 看门狗(菜单项放到服务里面)
