@@ -127,12 +127,6 @@ clone_dir main https://github.com/chenmozhijin/luci-app-socat luci-app-socat
 # luci-app-tailscale
 sed -i '/\/etc\/init\.d\/tailscale/d;/\/etc\/config\/tailscale/d;' feeds/packages/net/tailscale/Makefile
 git_clone https://github.com/asvow/luci-app-tailscale luci-app-tailscale
-if [ -d package/feeds/packages/tailscale ]; then
-    rm -rf package/feeds/packages/tailscale
-    echo "Removed package/feeds/packages/tailscale"
-else
-    echo "No package/feeds/packages/tailscale found, nothing to do"
-fi
 
 # 看门狗(菜单项放到服务里面)
 clone_dir main https://github.com/sirpdboy/luci-app-watchdog.git luci-app-watchdog watchdog
@@ -183,7 +177,7 @@ git_clone https://github.com/pymumu/luci-app-smartdns luci-app-smartdns
 clone_all v5 https://github.com/sbwml/luci-app-mosdns
 
 # openlist
-git_clone 27.x https://github.com/sbwml/packages_lang_golang golang
+git_clone 26.x https://github.com/sbwml/packages_lang_golang golang
 clone_all https://github.com/sbwml/luci-app-openlist
 
 # ssr-plus
