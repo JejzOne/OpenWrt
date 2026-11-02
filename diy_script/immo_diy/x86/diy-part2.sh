@@ -127,7 +127,7 @@ sed -i 's#"admin/control/#"admin/services/#g' $destination_dir/luci-app-watchdog
 #     sed -i 's|/usr/bin/AdGuardHome|/usr/bin/AdGuardHome/AdGuardHome|g' "$f"
 #     echo " ✅"
 # done
-clone_dir https://github.com/stevenjoezhang/luci-app-adguardhome luci-app-adguardhome
+git_clone https://github.com/stevenjoezhang/luci-app-adguardhome luci-app-adguardhome
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
