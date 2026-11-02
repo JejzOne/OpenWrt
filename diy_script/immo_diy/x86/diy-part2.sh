@@ -121,12 +121,13 @@ sed -i '/"admin\/control"[[:space:]]*:/,/^[[:space:]]*},/d' $destination_dir/luc
 sed -i 's#"admin/control/#"admin/services/#g' $destination_dir/luci-app-watchdog/root/usr/share/luci/menu.d/luci-app-watchdog.json
 
 # luci-app-adguardhome
-clone_dir https://github.com/sirpdboy/luci-app-adguardhome luci-app-adguardhome
-grep -rlZE '/usr/bin/AdGuardHome($|[^/])' package feeds | while IFS= read -r -d '' f; do
-    echo -n "Patching $f ..."
-    sed -i 's|/usr/bin/AdGuardHome|/usr/bin/AdGuardHome/AdGuardHome|g' "$f"
-    echo " ✅"
-done
+# clone_dir https://github.com/sirpdboy/luci-app-adguardhome luci-app-adguardhome
+# grep -rlZE '/usr/bin/AdGuardHome($|[^/])' package feeds | while IFS= read -r -d '' f; do
+#     echo -n "Patching $f ..."
+#     sed -i 's|/usr/bin/AdGuardHome|/usr/bin/AdGuardHome/AdGuardHome|g' "$f"
+#     echo " ✅"
+# done
+clone_dir https://github.com/stevenjoezhang/luci-app-adguardhome luci-app-adguardhome
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
