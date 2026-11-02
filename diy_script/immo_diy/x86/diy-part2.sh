@@ -241,7 +241,12 @@ if [ -f "$ARGON_IMG_FILE" ]; then
 
     echo "$bg_file argon wallpaper has been replaced!"
 fi
-ARGON_CONFIG_FILE="feeds/luci/applications/luci-app-argon-config/root/etc/config/argon"
+if [ -d "feeds/luci/applications/luci-app-argon-config" ]; then
+    base_dir="feeds/luci/applications/luci-app-argon-config"
+elif [ -d "$destination_dir/luci-app-argon-config" ]; then
+    base_dir="$destination_dir/luci-app-argon-config"
+fi
+ARGON_CONFIG_FILE="$base_dir/root/etc/config/argon"
 if [ -f "$ARGON_CONFIG_FILE" ]; then
     # 设置Argon主题的登录页面壁纸为内建
     sed -i "s/option online_wallpaper 'bing'/option online_wallpaper 'none'/" $ARGON_CONFIG_FILE
@@ -273,7 +278,7 @@ default_theme='argon'
 sed -i "s/bootstrap/$default_theme/g" feeds/luci/modules/luci-base/root/etc/config/luci
 
 # 更改 argon主题设置 顺序
-sed -i 's/"order"[[:space:]]*:[[:space:]]*85/"order": 90/g' feeds/luci/applications/luci-app-argon-config/root/usr/share/luci/menu.d/luci-app-argon-config.json
+sed -i 's/"order"[[:space:]]*:[[:space:]]*85/"order": 90/g' $base_dir/root/usr/share/luci/menu.d/luci-app-argon-config.json
 
 # 更改 aurora主题设置 顺序
 sed -i 's/"order"[[:space:]]*:[[:space:]]*100/"order": 90/g' $destination_dir/luci-app-aurora-config/root/usr/share/luci/menu.d/luci-app-aurora.json
