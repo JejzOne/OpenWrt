@@ -111,10 +111,9 @@ jobs:
     needs: [Checka]
     runs-on: ubuntu-latest
     name: Build-Init
-    outputs:
-      output_release_tag: ${{ steps.gen_release_tag.outputs.release_tag }}
     steps:
       - name: Generate Tag Name
+        if: ${{ github.event.inputs.updateconfig == 'true' }}
         id: gen_release_tag
         run: |
           sudo ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
@@ -123,6 +122,7 @@ jobs:
           sudo chown $USER:$GROUPS /workdir
 
       - name: Checkout
+        if: ${{ github.event.inputs.updateconfig == 'true' }}
         uses: actions/checkout@main
 
       - name: Clone Source Code
